@@ -158,9 +158,20 @@ def get_menu(context, request, position='left'):
                     'view_only': False
                 })
         else:
+            # Model display control and model order settings
+            show_models = settings.ADMINLTE_SETTINGS.get('show_models', {}).get(app['app_label'])
+
             for model in app.get('models', []):
                 model['icon'] = settings.ADMINLTE_SETTINGS\
                     .get('icons', {}).get(app['app_label'], {}).get(model['name'].lower())
+
+                if show_models:
+                    if not model['name'].lower() in show_models:
+                        app['models'].pop(app['models'].index(model))
+
+            if show_models:
+                app['models'].sort(key=lambda model: show_models.index(model['name'].lower()))
+
     # return MenuManager(available_apps, context, request)
     return available_apps
 

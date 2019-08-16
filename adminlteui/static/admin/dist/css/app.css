@@ -416,7 +416,8 @@ a.active.selector-clearall:focus, a.active.selector-clearall:hover {
 }
 
 input[type="number"], input[type="password"] {
-    width: auto;
+    /* Exceeds width space limited by bootstrap col divs */
+    /* width: auto; */
     height: 34px;
     padding: 6px 12px;
     font-size: 14px;
